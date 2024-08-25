@@ -12,8 +12,7 @@ void main() {
     color: Colors.green,
     name: 'PREVIEW',
     properties: {
-      Keys.apiUrl: 'https://jsonplaceholder.typicode.com/',
-      // Keys.apiKey: 'jksdhfkjhs83rjkh324kj23h4',
+      Keys.apiUrl: 'https://api.dk-sumedang.com/',
       Configs.customKey: 'value',
     },
   );

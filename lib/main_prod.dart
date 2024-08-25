@@ -7,8 +7,7 @@ void main() {
   Flavor.create(
     Environment.production,
     properties: {
-      Keys.apiUrl: 'https://sikerja.nexteam.id/api/',
-      // Keys.apiKey: 'lksdhjfkjhdsf8sdfjkhsdf896',
+      Keys.apiUrl: 'https://api.dk-sumedang.com/',
       Configs.customKey: 'value',
     },
   );

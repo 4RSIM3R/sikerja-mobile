@@ -6,7 +6,16 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:next_starter/data/datasources/remote_datasources/activity_remote/activity_remote.dart';
 import 'package:next_starter/data/datasources/remote_datasources/activity_remote/activity_remote_impl.dart';
+import 'package:next_starter/data/datasources/remote_datasources/announcement_remote/announcement_remote.dart';
+import 'package:next_starter/data/datasources/remote_datasources/announcement_remote/announcement_remote_impl.dart';
+import 'package:next_starter/data/datasources/remote_datasources/attendance_remote/attendance_remote.dart';
+import 'package:next_starter/data/datasources/remote_datasources/attendance_remote/attendance_remote_impl.dart';
+import 'package:next_starter/data/datasources/remote_datasources/setting_remote/setting_remote.dart';
+import 'package:next_starter/data/datasources/remote_datasources/setting_remote/setting_remote_impl.dart';
 import 'package:next_starter/data/repositories/activity_repository.dart';
+import 'package:next_starter/data/repositories/announcement_repository.dart';
+import 'package:next_starter/data/repositories/attendance_repository.dart';
+import 'package:next_starter/data/repositories/setting_repository.dart';
 import 'package:next_starter/presentation/pages/activity/attendance/bloc/attendance_bloc.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
 
@@ -55,4 +64,16 @@ Future<void> initializeDependencies(GlobalKey<NavigatorState> navigatorKey) asyn
   locator.registerSingleton(ActivityRepository(locator.get()));
   locator.registerFactory(ActivityListBloc.new);
   locator.registerFactory(AttendanceBloc.new);
+
+  // announcement
+  locator.registerSingleton<AnnouncementRemote>(AnnouncementRemoteImpl(locator.get(), locator.get()));
+  locator.registerSingleton(AnnouncementRepository(locator.get()));
+
+  // setting
+  locator.registerSingleton<SettingRemote>(SettingRemoteImpl(locator.get(), locator.get()));
+  locator.registerSingleton(SettingRepository(locator.get()));
+
+  // attendance
+  locator.registerSingleton<AttendanceRemote>(AttendanceRemoteImpl(locator.get(), locator.get()));
+  locator.registerSingleton(AttendanceRepository(locator.get()));
 }
