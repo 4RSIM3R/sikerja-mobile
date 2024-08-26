@@ -41,4 +41,21 @@ class SettingModel {
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       );
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "application_name": applicationName,
+      "application_version": applicationVersion,
+      "application_description": applicationDescription,
+      "start_working_hour": startWorkingHour,
+      "grace_period_minutes": gracePeriodMinutes,
+      "chief_name": chiefName,
+      "chief_nip": chiefNip,
+      "latitude": latitude,
+      "longitude": longitude,
+      "created_at": createdAt?.toIso8601String(),
+      "updated_at": updatedAt?.toIso8601String(),
+    };
+  }
 }

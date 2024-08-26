@@ -19,9 +19,9 @@ class ActivityRepository extends BaseRepository {
     );
   }
 
-  EitherResponse<void> submit(int id, FormData data) async {
+  EitherResponse<void> evidence(int id, FormData data) async {
     return handleNetworkCall(
-      call: remote.submit(id, data),
+      call: remote.evidence(id, data),
       onSuccess: (r) => r,
     );
   }

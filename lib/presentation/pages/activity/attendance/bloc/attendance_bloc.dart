@@ -18,7 +18,7 @@ class AttendanceBloc extends Cubit<AttendanceState> {
     emit(AttendanceLoadingState());
 
     Map<String, dynamic> payload = {
-      'show_in_report': report,
+      'show_on_report': report,
     };
 
     for (final file in files) {
@@ -27,7 +27,7 @@ class AttendanceBloc extends Cubit<AttendanceState> {
       });
     }
 
-    final response = await repository.submit(id, FormData.fromMap(payload));
+    final response = await repository.evidence(id, FormData.fromMap(payload));
 
     response.fold(
       (l) => emit(AttendanceErrorState(message: l.message)),

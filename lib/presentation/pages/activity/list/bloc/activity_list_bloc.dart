@@ -1,23 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:next_starter/common/utils/bloc_utils.dart';
 import 'package:next_starter/data/models/activity/activity_model.dart';
 import 'package:next_starter/data/repositories/activity_repository.dart';
 import 'package:next_starter/injection.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 part 'activity_list_event.dart';
 part 'activity_list_state.dart';
-
-const throttleDuration = Duration(milliseconds: 100);
-
-EventTransformer<E> throttleDroppable<E>(Duration duration) {
-  return (events, mapper) {
-    return droppable<E>().call(events.throttle(duration), mapper);
-  };
-}
 
 class ActivityListBloc extends Bloc<ActivityListEvent, ActivityListState> {
   final repo = locator<ActivityRepository>();

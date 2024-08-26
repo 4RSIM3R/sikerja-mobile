@@ -17,7 +17,7 @@ class ActivityRemoteImpl extends BaseDioRemoteSource implements ActivityRemote {
   }
 
   @override
-  Future<void> submit(int id, FormData data) async {
+  Future<void> evidence(int id, FormData data) async {
     return networkRequest(
       request: (dio) => dio.post('${ApiPath.activity}/$id/attendance', data: data),
       onResponse: (reponse) {},
