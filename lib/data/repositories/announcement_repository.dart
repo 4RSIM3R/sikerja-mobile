@@ -9,7 +9,7 @@ class AnnouncementRepository extends BaseRepository {
 
   final remote = locator<AnnouncementRemote>();
 
-  Future<EitherResponse<PaginatedAnnouncement>> get(int page) async {
+  EitherResponse<PaginatedAnnouncement> get(int page) {
     return handleNetworkCall(
       call: remote.get(page),
       onSuccess: (r) => r,
