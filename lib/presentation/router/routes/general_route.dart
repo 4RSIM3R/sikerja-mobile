@@ -1,9 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:next_starter/data/models/activity/activity_model.dart';
+import 'package:next_starter/data/models/announcement/announcement_model.dart';
 import 'package:next_starter/presentation/pages/about/about_page.dart';
 import 'package:next_starter/presentation/pages/activity/attendance/attendance_page.dart';
 import 'package:next_starter/presentation/pages/activity/detail/activity_detail_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/activity_list_page.dart';
+import 'package:next_starter/presentation/pages/announcement/announcement_detail_page.dart';
+import 'package:next_starter/presentation/pages/announcement/announcement_page.dart';
 import 'package:next_starter/presentation/pages/assignment/assignment_page.dart';
 import 'package:next_starter/presentation/pages/attendance/daily/daily_attendance_page.dart';
 import 'package:next_starter/presentation/pages/attendance/history/history_attendance_page.dart';
@@ -67,6 +70,18 @@ class GeneralRoute {
       path: HistoryAttendancePage.path,
       name: HistoryAttendancePage.path,
       builder: (context, state) => const HistoryAttendancePage(),
+    ),
+    GoRoute(
+      path: AnnouncementPage.path,
+      name: AnnouncementPage.path,
+      builder: (context, state) => const AnnouncementPage(),
+    ),
+    GoRoute(
+      path: AnnouncementDetailPage.path,
+      name: AnnouncementDetailPage.path,
+      builder: (context, state) => AnnouncementDetailPage(
+        model: (state.extra as Map<String, dynamic>)['announcement'] as Announcement,
+      ),
     ),
   ];
 }

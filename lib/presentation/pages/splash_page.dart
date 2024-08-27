@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:next_starter/presentation/pages/attendance/daily/daily_attendance_page.dart';
+import 'package:next_starter/data/datasources/session/session_source.dart';
+import 'package:next_starter/injection.dart';
+import 'package:next_starter/presentation/pages/home/home_page.dart';
 
 import '../../common/extensions/extensions.dart';
 import '../components/components.dart';
@@ -24,12 +26,11 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> init() async {
     await 1.delayedSeconds;
-    // final user = await locator<SessionSource>().hasSession;
-    // if (user) {
-    //   context.route.replace(HomePage.path);
-    //   return;
-    // }
-    context.route.replace(DailyAttendancePage.path);
+    final user = await locator<SessionSource>().hasSession;
+    if (user) {
+      context.route.replace(HomePage.path);
+      return;
+    }
   }
 
   @override

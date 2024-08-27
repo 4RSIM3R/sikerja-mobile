@@ -265,7 +265,15 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Kegiatan', style: CustomTextTheme.paragraph2.copyWith(color: Colors.black)),
-                    Text('Lihat Semua', style: CustomTextTheme.paragraph1.copyWith(color: Colors.blue)),
+                    InkWell(
+                      onTap: () {
+                        context.route.push(ActivityListPage.path);
+                      },
+                      child: Text(
+                        'Lihat Semua',
+                        style: CustomTextTheme.paragraph1.copyWith(color: Colors.blue),
+                      ),
+                    ),
                   ],
                 ),
                 BlocBuilder<ActivityListBloc, ActivityListState>(
@@ -286,7 +294,15 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Berita', style: CustomTextTheme.paragraph2.copyWith(color: Colors.black)),
-                    Text('Lihat Semua', style: CustomTextTheme.paragraph1.copyWith(color: Colors.blue)),
+                    InkWell(
+                      onTap: () {
+                        context.route.push(ActivityListPage.path);
+                      },
+                      child: Text(
+                        'Lihat Semua',
+                        style: CustomTextTheme.paragraph1.copyWith(color: Colors.blue),
+                      ),
+                    ),
                   ],
                 ),
                 BlocBuilder<ActivityListBloc, ActivityListState>(

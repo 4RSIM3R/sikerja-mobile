@@ -72,6 +72,7 @@ dependencies:
   table_calendar: ^3.1.1
   easy_localization: ^3.0.7
   one_clock: ^2.0.1
+  flutter_widget_from_html_core: ^0.15.2
 
 dev_dependencies:
   flutter_test:

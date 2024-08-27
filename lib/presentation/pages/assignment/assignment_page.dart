@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:next_starter/injection.dart';
+import 'package:next_starter/presentation/pages/assignment/bloc/assignment_bloc.dart';
 
 class AssignmentPage extends StatefulWidget {
   const AssignmentPage({super.key});
@@ -10,6 +12,8 @@ class AssignmentPage extends StatefulWidget {
 }
 
 class _AssignmentPageState extends State<AssignmentPage> {
+  final bloc = locator<AssignmentBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
