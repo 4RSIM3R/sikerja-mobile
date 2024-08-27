@@ -1,24 +1,18 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:next_starter/common/extensions/context_extension.dart';
-import 'package:next_starter/data/models/announcement/announcement_model.dart';
-import 'package:next_starter/presentation/pages/announcement/announcement_detail_page.dart';
+import 'package:next_starter/data/models/assignment/assignment_model.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 
-class AnnouncementCard extends StatelessWidget {
-  const AnnouncementCard({
+class AssignmentCard extends StatelessWidget {
+  const AssignmentCard({
     super.key,
     required this.model,
   });
 
-  final Announcement model;
+  final Assignment model;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        context.route.pushNamed(AnnouncementDetailPage.path, extra: model);
-      },
       leading: Container(
         height: 40,
         width: 40,
@@ -31,8 +25,13 @@ class AnnouncementCard extends StatelessWidget {
         ),
       ),
       title: Text('${model.title}', style: CustomTextTheme.paragraph1.copyWith(fontWeight: FontWeight.w600)),
-      subtitle: Text(DateFormat('dd MMMM yyyy').format(model.createdAt!)),
-      trailing: const Icon(Icons.arrow_forward_ios),
+      subtitle: Text('${model.number}'),
+      trailing: IconButton(
+        onPressed: () {
+          
+        },
+        icon: const Icon(Icons.download),
+      ),
     );
   }
 }
