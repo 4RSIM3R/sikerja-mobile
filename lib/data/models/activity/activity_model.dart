@@ -38,7 +38,7 @@ class ActivityModel {
   final dynamic budgetSource;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final List<AttendanceModel>? attendances;
+  final List<Attendance>? attendances;
 
   ActivityModel({
     this.id,
@@ -69,6 +69,6 @@ class ActivityModel {
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         attendances: json["attendances"] == null
             ? []
-            : List<AttendanceModel>.from(json["attendances"]!.map((x) => AttendanceModel.fromJson(x))),
+            : List<Attendance>.from(json["attendances"]!.map((x) => Attendance.fromJson(x))),
       );
 }

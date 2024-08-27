@@ -10,7 +10,9 @@ import 'package:next_starter/presentation/components/card/activity_card.dart';
 import 'package:next_starter/presentation/pages/about/about_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/activity_list_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
+import 'package:next_starter/presentation/pages/announcement/bloc/announcement_bloc.dart';
 import 'package:next_starter/presentation/pages/assignment/assignment_page.dart';
+import 'package:next_starter/presentation/pages/assignment/bloc/assignment_bloc.dart';
 import 'package:next_starter/presentation/pages/gallery/list/gallery_list_page.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 
@@ -26,11 +28,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final auth = locator<AuthCubit>();
   final activity = locator<ActivityListBloc>();
+  final announcement = locator<AnnouncementBloc>();
+  final assignment = locator<AssignmentBloc>();
 
   @override
   void initState() {
     super.initState();
     activity.add(ActivityListFetch());
+    announcement.add(AnnouncementFetch());
+    assignment.add(AssignmentFetch());
   }
 
   @override
@@ -39,6 +45,8 @@ class _HomePageState extends State<HomePage> {
       providers: [
         BlocProvider(create: (_) => auth),
         BlocProvider(create: (_) => activity),
+        BlocProvider(create: (_) => announcement),
+        BlocProvider(create: (_) => assignment),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -281,7 +289,18 @@ class _HomePageState extends State<HomePage> {
                     Text('Lihat Semua', style: CustomTextTheme.paragraph1.copyWith(color: Colors.blue)),
                   ],
                 ),
-                
+                BlocBuilder<ActivityListBloc, ActivityListState>(
+                  builder: (context, state) {
+                    if (state.status == ActivityListStatus.success) {
+                      return Column(
+                        children: [
+                          ...state.posts.take(3).map((e) => ActivityCard(model: e)),
+                        ],
+                      );
+                    }
+                    return const Center(child: CircularProgressIndicator.adaptive());
+                  },
+                ),
               ],
             ),
           ),
