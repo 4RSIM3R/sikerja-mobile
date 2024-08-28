@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:next_starter/common/extensions/context_extension.dart';
+import 'package:next_starter/common/extensions/widget_extension.dart';
 import 'package:next_starter/common/widgets/app_error_widget.dart';
 import 'package:next_starter/common/widgets/loading_indicator_widget.dart';
 import 'package:next_starter/common/widgets/row_loading_widget.dart';
@@ -8,6 +11,7 @@ import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/card/activity_card.dart';
 import 'package:next_starter/presentation/pages/activity/form/activity_form_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
+import 'package:next_starter/presentation/theme/theme.dart';
 
 class ActivityListPage extends StatefulWidget {
   static const path = "/activity-list";
@@ -59,7 +63,9 @@ class _ActivityListPageState extends State<ActivityListPage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.route.pop();
+            },
             icon: const Icon(Icons.arrow_back),
           ),
           title: const Text('List Kegiatan'),
@@ -77,17 +83,43 @@ class _ActivityListPageState extends State<ActivityListPage> {
               case ActivityListStatus.success:
                 if (state.activities.isEmpty) {
                   return const Center(child: Text('no activities'));
+                } else {
+                  return Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: ColorTheme.primary.withOpacity(0.3),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              CupertinoIcons.info,
+                              size: 24,
+                              color: ColorTheme.primary,
+                            ),
+                            4.horizontalSpace,
+                            Text(
+                              'Jangan lupa untuk lengkapi eviden pada kegiatan yang sedang berlangsung',
+                              style: CustomTextTheme.paragraph1.copyWith(color: ColorTheme.primary),
+                            ).expand(),
+                          ],
+                        ),
+                      ),
+                      ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (BuildContext context, int i) {
+                          return i >= state.activities.length
+                              ? const RowLoadingWidget()
+                              : ActivityCard(model: state.activities[i]);
+                        },
+                        itemCount: state.hasReachedMax ? state.activities.length : state.activities.length + 1,
+                        controller: _scrollController,
+                      ).expand(),
+                    ],
+                  );
                 }
-                return ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int i) {
-                    return i >= state.activities.length
-                        ? const RowLoadingWidget()
-                        : ActivityCard(model: state.activities[i]);
-                  },
-                  itemCount: state.hasReachedMax ? state.activities.length : state.activities.length + 1,
-                  controller: _scrollController,
-                );
+
               case ActivityListStatus.initial:
                 return const LoadingIndicatorWidget();
             }

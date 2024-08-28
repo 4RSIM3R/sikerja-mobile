@@ -75,6 +75,8 @@ dependencies:
   firebase_core: ^3.4.0
   firebase_messaging: ^15.1.0
   multi_dropdown: ^3.0.1
+  reactive_date_time_picker: ^4.0.0
+  reactive_date_range_picker: ^2.1.0
 
 dev_dependencies:
   flutter_test:

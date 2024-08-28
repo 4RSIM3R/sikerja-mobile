@@ -11,6 +11,7 @@ import 'package:next_starter/presentation/pages/activity/form/bloc/activity_form
 import 'package:next_starter/presentation/pages/activity/form/bloc/activity_form_state.dart';
 import 'package:next_starter/presentation/pages/home/home_page.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
+import 'package:reactive_date_range_picker/reactive_date_range_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class ActivityFormPage extends StatefulWidget {
@@ -26,8 +27,7 @@ class _ActivityFormPageState extends State<ActivityFormPage> {
   final bloc = locator<ActivityFormBloc>();
 
   final form = fb.group({
-    'report_period_start': FormControl<DateTime>(validators: [Validators.required]),
-    'report_period_end': FormControl<DateTime>(validators: [Validators.required]),
+    'report_period': FormControl<DateTimeRange>(validators: [Validators.required]),
     'execution_task': FormControl<String>(validators: [Validators.required]),
     'result_plan': FormControl<String>(validators: [Validators.required]),
     'action_plan': FormControl<String>(validators: [Validators.required]),
@@ -74,6 +74,11 @@ class _ActivityFormPageState extends State<ActivityFormPage> {
               builder: (context, formGroup, child) {
                 return Column(
                   children: [
+                    ReactiveDateRangePicker(
+                      formControlName: 'report_period',
+                      decoration: GenerateTheme.inputDecoration('Periode Laporan'),
+                    ),
+                    8.verticalSpace,
                     const TextInput(
                       title: 'Pelaksana Tugas',
                       formControlName: 'execution_task',
@@ -116,7 +121,7 @@ class _ActivityFormPageState extends State<ActivityFormPage> {
                       enabled: true,
                       searchEnabled: true,
                       chipDecoration: const ChipDecoration(
-                        backgroundColor: Colors.yellow,
+                        backgroundColor: ColorTheme.primary,
                         wrap: true,
                         runSpacing: 2,
                         spacing: 10,

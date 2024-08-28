@@ -1173,6 +1173,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  reactive_date_range_picker:
+    dependency: "direct main"
+    description:
+      name: reactive_date_range_picker
+      sha256: ae2916d16f43c1e9e42e41300a2a1b4220fd31812fc98e017445fad5a09cd6cc
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  reactive_date_time_picker:
+    dependency: "direct main"
+    description:
+      name: reactive_date_time_picker
+      sha256: "346956358fd2553dbda4babdefc8d4b0dd99691e6b611dbe7e7de26896b40ff8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   reactive_forms:
     dependency: "direct main"
     description:
