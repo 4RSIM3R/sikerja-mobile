@@ -4,6 +4,8 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 class PdfViewerPage extends StatefulWidget {
   const PdfViewerPage({super.key});
 
+  static const path = 'pdf-viewer';
+
   @override
   State<PdfViewerPage> createState() => _PdfViewerPageState();
 }

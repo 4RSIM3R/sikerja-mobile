@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:next_starter/common/extensions/context_extension.dart';
 import 'package:next_starter/data/models/assignment/assignment_model.dart';
+import 'package:next_starter/presentation/pages/viewer/pdf_viewer_page.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 
 class AssignmentCard extends StatelessWidget {
@@ -28,7 +30,7 @@ class AssignmentCard extends StatelessWidget {
       subtitle: Text('${model.number}'),
       trailing: IconButton(
         onPressed: () {
-          
+          context.route.pushNamed(PdfViewerPage.path);
         },
         icon: const Icon(Icons.download),
       ),

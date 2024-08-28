@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:next_starter/common/utils/bloc_utils.dart';
+import 'package:next_starter/data/models/attendance/attendance_model.dart';
 import 'package:next_starter/data/repositories/attendance_repository.dart';
 import 'package:next_starter/injection.dart';
 
@@ -21,7 +22,7 @@ class HistoryAttendanceBloc extends Bloc<HistoryAttendanceEvent, HistoryAttendan
 
   FutureOr<void> _onHistoryAttendanceFetch(HistoryAttendanceFetch event, Emitter<HistoryAttendanceState> emit) async {
     if (state.hasReachedMax) return;
-    final post = await repo.get(state.page);
+    final post = await repo.history(state.page);
     post.fold(
       (l) => emit(state.copyWith(status: HistoryAttendanceStatus.failure, errorMessage: l.message)),
       (r) {

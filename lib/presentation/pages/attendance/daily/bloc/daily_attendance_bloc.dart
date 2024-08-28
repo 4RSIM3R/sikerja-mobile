@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:next_starter/data/repositories/attendance_repository.dart';
@@ -12,11 +13,17 @@ class DailyAttendanceBloc extends Cubit<DailyAttendanceState> {
   Future<void> submit({required String path, required Position position}) async {
     emit(DailyAttendanceLoadingState());
 
-    // final response = await repo.submit(path, position);
+    final data = FormData.fromMap({
+      'latitude': position.latitude.toString(),
+      'longitude': position.longitude.toString(),
+      'attachment': MultipartFile.fromFile(path)
+    });
 
-    // response.fold(
-    //   (l) => emit(DailyAttendanceFailureState(l.message)),
-    //   (r) => emit(DailyAttendanceSuccessState()),
-    // );
+    final response = await repo.submit(data);
+
+    response.fold(
+      (l) => emit(DailyAttendanceFailureState(l.message)),
+      (r) => emit(DailyAttendanceSuccessState()),
+    );
   }
 }

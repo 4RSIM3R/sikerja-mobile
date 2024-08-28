@@ -13,6 +13,7 @@ import 'package:next_starter/presentation/pages/attendance/history/history_atten
 import 'package:next_starter/presentation/pages/gallery/detail/gallery_detail_page.dart';
 import 'package:next_starter/presentation/pages/gallery/list/gallery_list_page.dart';
 import 'package:next_starter/presentation/pages/home/home_page.dart';
+import 'package:next_starter/presentation/pages/viewer/pdf_viewer_page.dart';
 
 class GeneralRoute {
   static final routes = [
@@ -83,5 +84,9 @@ class GeneralRoute {
         model: (state.extra as Map<String, dynamic>)['announcement'] as Announcement,
       ),
     ),
+    GoRoute(
+      path: PdfViewerPage.path,
+      
+    )
   ];
 }
