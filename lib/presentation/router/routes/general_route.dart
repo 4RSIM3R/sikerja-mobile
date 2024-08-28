@@ -81,7 +81,7 @@ class GeneralRoute {
       path: AnnouncementDetailPage.path,
       name: AnnouncementDetailPage.path,
       builder: (context, state) => AnnouncementDetailPage(
-        model: (state.extra as Map<String, dynamic>)['announcement'] as Announcement,
+        model: (state.extra as Announcement),
       ),
     ),
     GoRoute(

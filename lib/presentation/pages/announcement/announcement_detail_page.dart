@@ -30,19 +30,21 @@ class _AnnouncementDetailPageState extends State<AnnouncementDetailPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 250,
+              height: 200,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
                 image: DecorationImage(
-                  image: CachedNetworkImageProvider(widget.model.thumbnail!),
+                  image: CachedNetworkImageProvider('https://terasjabar.co/wp-content/uploads/2020/03/IMG-20200315-WA0001.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            Text(widget.model.title ?? '-', style: CustomTextTheme.paragraph1),
+            Text(widget.model.title ?? '-', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 16),
             HtmlWidget(
               widget.model.content ?? '-',

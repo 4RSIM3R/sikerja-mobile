@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:next_starter/application/auth/auth_cubit.dart';
+import 'package:next_starter/common/constant/ui_constant.dart';
 import 'package:next_starter/common/extensions/context_extension.dart';
 import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/card/announcement_card.dart';
@@ -132,23 +133,20 @@ class _HomePageState extends State<HomePage> {
                       enableInfiniteScroll: true,
                       initialPage: 0,
                       enlargeCenterPage: true),
-                  items: List.generate(
-                    4,
-                    (i) => Container(
-                      height: 185,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                            'https://static.promediateknologi.id/crop/0x0:0x0/500x500/webp/photo/2023/01/09/2437041174.png',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+                  items: banners
+                      .map((e) => Container(
+                            height: 185,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[50],
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: NetworkImage(e),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ))
+                      .toList(),
                 ),
                 24.verticalSpace,
                 Row(
@@ -176,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                         4.verticalSpace,
                         Text(
                           'Aktifitas',
-                          style: CustomTextTheme.paragraph1.copyWith(),
+                          style: CustomTextTheme.paragraph1.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -202,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                         4.verticalSpace,
                         Text(
                           'Surat Tugas',
-                          style: CustomTextTheme.paragraph1.copyWith(),
+                          style: CustomTextTheme.paragraph1.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -228,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                         4.verticalSpace,
                         Text(
                           'Absensi',
-                          style: CustomTextTheme.paragraph1.copyWith(),
+                          style: CustomTextTheme.paragraph1.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -254,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                         4.verticalSpace,
                         Text(
                           'Galeri',
-                          style: CustomTextTheme.paragraph1.copyWith(),
+                          style: CustomTextTheme.paragraph1.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),

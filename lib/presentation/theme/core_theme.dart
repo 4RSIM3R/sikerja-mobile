@@ -15,7 +15,7 @@ class AppCoreTheme {
     primaryColor: ColorTheme.primary,
     scaffoldBackgroundColor: Colors.grey.shade100,
     progressIndicatorTheme: const ProgressIndicatorThemeData(color: ColorTheme.primary),
-    textTheme: GoogleFonts.robotoTextTheme(),
+    textTheme: GoogleFonts.plusJakartaSansTextTheme(),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorTheme.primary,
@@ -120,8 +120,8 @@ class AppCoreTheme {
       dividerColor: Colors.transparent,
       indicatorColor: ColorTheme.primary,
       indicatorSize: TabBarIndicatorSize.label,
-      overlayColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.pressed)) {
+      overlayColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.pressed)) {
           return AppCoreColor.primary.focus;
         }
 
@@ -139,8 +139,8 @@ class AppCoreTheme {
     // CheckBox Button Theme
     checkboxTheme: CheckboxThemeData(
       splashRadius: 5.0,
-      fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+      fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return ColorTheme.primary;
         }
 
@@ -149,8 +149,8 @@ class AppCoreTheme {
     ),
     // Radio Button Theme
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+      fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return ColorTheme.primary;
         }
 
