@@ -86,7 +86,8 @@ class GeneralRoute {
     ),
     GoRoute(
       path: PdfViewerPage.path,
-      
+      name: PdfViewerPage.path,
+      builder: (context, state) => const PdfViewerPage(),
     )
   ];
 }

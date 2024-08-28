@@ -16,6 +16,7 @@ class AnnouncementCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       onTap: () {
         context.route.pushNamed(AnnouncementDetailPage.path, extra: model);
       },

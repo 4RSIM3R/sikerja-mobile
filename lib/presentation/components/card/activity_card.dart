@@ -13,6 +13,7 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       onTap: () {
         context.route.pushNamed(ActivityDetailPage.path, extra: model);
       },
