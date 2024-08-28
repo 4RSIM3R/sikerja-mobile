@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:next_starter/data/repositories/attendance_repository.dart';
@@ -16,7 +17,8 @@ class DailyAttendanceBloc extends Cubit<DailyAttendanceState> {
     final data = FormData.fromMap({
       'latitude': position.latitude.toString(),
       'longitude': position.longitude.toString(),
-      'attachment': MultipartFile.fromFile(path)
+      'photo': await MultipartFile.fromFile(path),
+      'work_hour': DateFormat('HH:mm').format(DateTime.now()),
     });
 
     final response = await repo.submit(data);

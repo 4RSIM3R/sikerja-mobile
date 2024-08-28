@@ -8,10 +8,10 @@ class ActivityRemoteImpl extends BaseDioRemoteSource implements ActivityRemote {
   ActivityRemoteImpl(super.dio, super.session);
 
   @override
-  Future<PaginateActivityModel> all(int page) async {
+  Future<PaginatedActivity> all(int page) async {
     return networkRequest(
       request: (dio) => dio.get(ApiPath.activity, queryParameters: {'page': page}),
-      onResponse: (reponse) => PaginateActivityModel.fromJson(reponse['data']),
+      onResponse: (reponse) => PaginatedActivity.fromJson(reponse),
       isAuth: true,
     );
   }
@@ -19,7 +19,7 @@ class ActivityRemoteImpl extends BaseDioRemoteSource implements ActivityRemote {
   @override
   Future<void> evidence(int id, FormData data) async {
     return networkRequest(
-      request: (dio) => dio.post('${ApiPath.activity}/$id/attendance', data: data),
+      request: (dio) => dio.post('${ApiPath.activity}/evidence/$id', data: data),
       onResponse: (reponse) {},
       isAuth: true,
     );

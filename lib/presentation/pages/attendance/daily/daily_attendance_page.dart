@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,6 +8,8 @@ import 'package:next_starter/common/extensions/extensions.dart';
 import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/button/primary_button.dart';
 import 'package:next_starter/presentation/pages/attendance/daily/bloc/daily_attendance_bloc.dart';
+import 'package:next_starter/presentation/pages/attendance/daily/bloc/daily_attendance_state.dart';
+import 'package:next_starter/presentation/pages/home/home_page.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:one_clock/one_clock.dart';
 
@@ -20,7 +23,6 @@ class DailyAttendancePage extends StatefulWidget {
 }
 
 class _DailyAttendancePageState extends State<DailyAttendancePage> {
-
   final bloc = locator<DailyAttendanceBloc>();
 
   Position? position;
@@ -38,47 +40,64 @@ class _DailyAttendancePageState extends State<DailyAttendancePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text('Absensi Harian'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              checkIfLate(workStartTime),
-              style: CustomTextTheme.paragraph3.copyWith(fontWeight: FontWeight.w600),
-            ).center(),
-            32.verticalSpace,
-            AnalogClock(
-              width: MediaQuery.sizeOf(context).width * 0.65,
-              height: MediaQuery.sizeOf(context).width * 0.65,
-              isLive: true,
-              datetime: DateTime.now(),
-              showAllNumbers: true,
-              showDigitalClock: true,
-              showNumbers: true,
-              showTicks: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => bloc),
+      ],
+      child: BlocListener<DailyAttendanceBloc, DailyAttendanceState>(
+        listener: (context, state) {
+          if (state is DailyAttendanceLoadingState) {
+            context.showLoadingIndicator();
+          } else if (state is DailyAttendanceFailureState) {
+            context.showSnackbar(message: state.message, error: true);
+          } else if (state is DailyAttendanceSuccessState) {
+            context.showSnackbar(message: 'Sukses Absensi');
+            context.route.pushReplacement(HomePage.path);
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            title: const Text('Absensi Harian'),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  checkIfLate(workStartTime),
+                  style: CustomTextTheme.paragraph3.copyWith(fontWeight: FontWeight.w600),
+                ).center(),
+                32.verticalSpace,
+                AnalogClock(
+                  width: MediaQuery.sizeOf(context).width * 0.65,
+                  height: MediaQuery.sizeOf(context).width * 0.65,
+                  isLive: true,
+                  datetime: DateTime.now(),
+                  showAllNumbers: true,
+                  showDigitalClock: true,
+                  showNumbers: true,
+                  showTicks: true,
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
-        child: PrimaryButton(
-          title: 'Check In',
-          onTap: () async {
-            var image = await picker.pickImage(source: ImageSource.gallery);
-            if (image != null && position != null) {
-              bloc.submit(path: image.path, position: position!);
-            }
-          },
+          ),
+          bottomNavigationBar: Container(
+            padding: const EdgeInsets.all(16),
+            child: PrimaryButton(
+              title: 'Check In',
+              onTap: () async {
+                var image = await picker.pickImage(source: ImageSource.camera, imageQuality: 50);
+                if (image != null && position != null) {
+                  bloc.submit(path: image.path, position: position!);
+                }
+              },
+            ),
+          ),
         ),
       ),
     );

@@ -73,15 +73,15 @@ class _ActivityListPageState extends State<ActivityListPage> {
                   },
                 );
               case ActivityListStatus.success:
-                if (state.posts.isEmpty) {
-                  return const Center(child: Text('no posts'));
+                if (state.activities.isEmpty) {
+                  return const Center(child: Text('no activities'));
                 }
                 return ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int i) {
-                    return i >= state.posts.length ? const RowLoadingWidget() : ActivityCard(model: state.posts[i]);
+                    return i >= state.activities.length ? const RowLoadingWidget() : ActivityCard(model: state.activities[i]);
                   },
-                  itemCount: state.hasReachedMax ? state.posts.length : state.posts.length + 1,
+                  itemCount: state.hasReachedMax ? state.activities.length : state.activities.length + 1,
                   controller: _scrollController,
                 );
               case ActivityListStatus.initial:

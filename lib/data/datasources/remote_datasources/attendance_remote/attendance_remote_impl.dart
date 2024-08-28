@@ -20,8 +20,8 @@ class AttendanceRemoteImpl extends BaseDioRemoteSource implements AttendanceRemo
   Future<void> submit(FormData data) async {
     return networkRequest(
       isAuth: true,
-      request: (dio) => dio.get(ApiPath.attendance),
-      onResponse: (response) => PaginatedAttendance.fromJson(response),
+      request: (dio) => dio.post(ApiPath.attendance, data: data),
+      onResponse: (response) {},
     );
   }
 
@@ -33,5 +33,4 @@ class AttendanceRemoteImpl extends BaseDioRemoteSource implements AttendanceRemo
       onResponse: (response) => response['data'] == null,
     );
   }
-  
 }

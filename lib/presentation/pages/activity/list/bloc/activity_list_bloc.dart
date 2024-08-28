@@ -27,15 +27,15 @@ class ActivityListBloc extends Bloc<ActivityListEvent, ActivityListState> {
       (l) => emit(state.copyWith(status: ActivityListStatus.failure, errorMessage: l.message)),
       (r) {
         emit(
-          (r.data?.length ?? 0) < 10
+          (r.data?.items?.length ?? 0) < 10
               ? state.copyWith(
                   status: ActivityListStatus.success,
                   hasReachedMax: true,
-                  posts: List.of(state.posts)..addAll(r.data ?? []),
+                  activities: List.of(state.activities)..addAll(r.data?.items ?? []),
                 )
               : state.copyWith(
                   status: ActivityListStatus.success,
-                  posts: List.of(state.posts)..addAll(r.data ?? []),
+                  activities: List.of(state.activities)..addAll(r.data?.items ?? []),
                   hasReachedMax: false,
                   page: state.page + 1,
                 ),

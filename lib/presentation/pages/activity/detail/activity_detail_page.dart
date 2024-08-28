@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:next_starter/common/extensions/context_extension.dart';
 import 'package:next_starter/common/utils/date_utils.dart';
 import 'package:next_starter/data/models/activity/activity_model.dart';
+import 'package:next_starter/presentation/components/button/primary_button.dart';
+import 'package:next_starter/presentation/pages/activity/attendance/attendance_page.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 
 class ActivityDetailPage extends StatefulWidget {
@@ -9,7 +12,7 @@ class ActivityDetailPage extends StatefulWidget {
 
   static const path = "/activity/detail";
 
-  final ActivityModel model;
+  final Activity model;
 
   @override
   State<ActivityDetailPage> createState() => _ActivityDetailPageState();
@@ -49,23 +52,21 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           ],
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   padding: const EdgeInsets.all(16),
-      //   child: widget.model.attendances?.first.status == 'present'
-      //       ? const SizedBox.shrink()
-      //       : PrimaryButton(
-      //           title: 'Tambahkan Eviden',
-      //           onTap: () {
-      //             context.route.push(
-      //               AttendancePage.path,
-      //               extra: {
-      //                 'id': widget.model.id,
-      //                 'report': true,
-      //               },
-      //             );
-      //           },
-      //         ),
-      // ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
+        child: PrimaryButton(
+          title: 'Tambahkan Eviden',
+          onTap: () {
+            context.route.push(
+              AttendancePage.path,
+              extra: {
+                'id': widget.model.id,
+                'report': true,
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }

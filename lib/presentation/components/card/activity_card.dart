@@ -8,7 +8,7 @@ import 'package:next_starter/presentation/theme/theme.dart';
 class ActivityCard extends StatelessWidget {
   const ActivityCard({super.key, required this.model});
 
-  final ActivityModel model;
+  final Activity model;
 
   @override
   Widget build(BuildContext context) {

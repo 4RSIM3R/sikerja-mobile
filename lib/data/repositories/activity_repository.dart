@@ -12,7 +12,7 @@ class ActivityRepository extends BaseRepository {
   final ActivityRemote remote = locator();
   final SessionSource session = locator();
 
-  EitherResponse<PaginateActivityModel> all(int page) async {
+  EitherResponse<PaginatedActivity> all(int page) async {
     return handleNetworkCall(
       call: remote.all(page),
       onSuccess: (r) => r,

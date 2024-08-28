@@ -35,7 +35,7 @@ class GeneralRoute {
     GoRoute(
       path: ActivityDetailPage.path,
       name: ActivityDetailPage.path,
-      builder: (context, state) => ActivityDetailPage(model: state.extra as ActivityModel),
+      builder: (context, state) => ActivityDetailPage(model: state.extra as Activity),
     ),
     GoRoute(
       path: AttendancePage.path,

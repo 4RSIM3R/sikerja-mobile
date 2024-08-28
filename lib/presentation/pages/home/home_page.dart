@@ -10,15 +10,16 @@ import 'package:next_starter/common/widgets/app_error_widget.dart';
 import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/card/announcement_card.dart';
 import 'package:next_starter/presentation/components/card/assignment_card.dart';
-import 'package:next_starter/presentation/pages/about/about_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/activity_list_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
 import 'package:next_starter/presentation/pages/announcement/announcement_page.dart';
 import 'package:next_starter/presentation/pages/announcement/bloc/announcement_bloc.dart';
 import 'package:next_starter/presentation/pages/assignment/assignment_page.dart';
 import 'package:next_starter/presentation/pages/assignment/bloc/assignment_bloc.dart';
+import 'package:next_starter/presentation/pages/attendance/daily/daily_attendance_page.dart';
 import 'package:next_starter/presentation/pages/gallery/list/gallery_list_page.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,9 +39,22 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    requestPermission();
+    fetch();
+  }
+
+  Future<void> fetch() async {
     activity.add(ActivityListFetch());
     announcement.add(AnnouncementFetch());
     assignment.add(AssignmentFetch());
+  }
+
+  Future<void> requestPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.camera,
+      Permission.storage,
+    ].request();
   }
 
   @override
@@ -211,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            context.route.push(AboutPage.path);
+                            context.route.push(DailyAttendancePage.path);
                           },
                           child: Container(
                             height: 50,

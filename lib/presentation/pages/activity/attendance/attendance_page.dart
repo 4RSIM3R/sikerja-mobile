@@ -67,7 +67,7 @@ class _AttendancePageState extends State<AttendancePage> {
             actions: [
               IconButton(
                 onPressed: () {
-                  picker.pickImage(source: ImageSource.camera).then((value) {
+                  picker.pickImage(source: ImageSource.camera, imageQuality: 50).then((value) {
                     value != null ? setState(() => files.add(value)) : null;
                   });
                 },
@@ -75,7 +75,7 @@ class _AttendancePageState extends State<AttendancePage> {
               ),
               IconButton(
                 onPressed: () {
-                  picker.pickImage(source: ImageSource.gallery).then((value) {
+                  picker.pickImage(source: ImageSource.gallery, imageQuality: 50).then((value) {
                     value != null ? setState(() => files.add(value)) : null;
                   });
                 },

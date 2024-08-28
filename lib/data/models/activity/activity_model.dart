@@ -1,32 +1,40 @@
-import 'package:next_starter/data/models/attendance/attendance_model.dart';
+class PaginatedActivity {
+  final String? message;
+  final Data? data;
 
-class PaginateActivityModel {
-  final dynamic prevPage;
-  final int? currentPage;
-  final dynamic nextPage;
-  final List<ActivityModel>? data;
-
-  PaginateActivityModel({
-    this.prevPage,
-    this.currentPage,
-    this.nextPage,
+  PaginatedActivity({
+    this.message,
     this.data,
   });
 
-  factory PaginateActivityModel.fromJson(Map<String, dynamic> json) {
-    print(json["data"]["data"]);
-    return PaginateActivityModel(
-      prevPage: json["prev_page"],
-      currentPage: json["current_page"],
-      nextPage: json["next_page"],
-      data: json["data"]["data"] == null
-          ? <ActivityModel>[]
-          : List<ActivityModel>.from(json["data"]["data"]!.map((x) => ActivityModel.fromJson(x))),
-    );
-  }
+  factory PaginatedActivity.fromJson(Map<String, dynamic> json) => PaginatedActivity(
+        message: json["message"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+      );
 }
 
-class ActivityModel {
+class Data {
+  final List<Activity>? items;
+  final dynamic prevPage;
+  final int? currentPage;
+  final dynamic nextPage;
+
+  Data({
+    this.items,
+    this.prevPage,
+    this.currentPage,
+    this.nextPage,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        items: json["items"] == null ? [] : List<Activity>.from(json["items"]!.map((x) => Activity.fromJson(x))),
+        prevPage: json["prev_page"],
+        currentPage: json["current_page"],
+        nextPage: json["next_page"],
+      );
+}
+
+class Activity {
   final int? id;
   final DateTime? reportPeriodStart;
   final DateTime? reportPeriodEnd;
@@ -34,13 +42,12 @@ class ActivityModel {
   final String? resultPlan;
   final String? actionPlan;
   final String? output;
-  final dynamic budget;
-  final dynamic budgetSource;
+  final String? budget;
+  final String? budgetSource;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final List<Attendance>? attendances;
 
-  ActivityModel({
+  Activity({
     this.id,
     this.reportPeriodStart,
     this.reportPeriodEnd,
@@ -52,10 +59,9 @@ class ActivityModel {
     this.budgetSource,
     this.createdAt,
     this.updatedAt,
-    this.attendances,
   });
 
-  factory ActivityModel.fromJson(Map<String, dynamic> json) => ActivityModel(
+  factory Activity.fromJson(Map<String, dynamic> json) => Activity(
         id: json["id"],
         reportPeriodStart: json["report_period_start"] == null ? null : DateTime.parse(json["report_period_start"]),
         reportPeriodEnd: json["report_period_end"] == null ? null : DateTime.parse(json["report_period_end"]),
@@ -67,8 +73,5 @@ class ActivityModel {
         budgetSource: json["budget_source"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        attendances: json["attendances"] == null
-            ? []
-            : List<Attendance>.from(json["attendances"]!.map((x) => Attendance.fromJson(x))),
       );
 }

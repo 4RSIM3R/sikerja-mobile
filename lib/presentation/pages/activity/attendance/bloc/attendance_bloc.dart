@@ -23,7 +23,7 @@ class AttendanceBloc extends Cubit<AttendanceState> {
 
     for (final file in files) {
       payload.addAll({
-        'image[${files.indexOf(file)}]': await MultipartFile.fromFile(file.path, filename: file.name),
+        'photo[${files.indexOf(file)}]': await MultipartFile.fromFile(file.path, filename: file.name),
       });
     }
 
