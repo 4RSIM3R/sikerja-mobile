@@ -73,6 +73,7 @@ dependencies:
   easy_localization: ^3.0.7
   one_clock: ^2.0.1
   flutter_widget_from_html_core: ^0.15.2
+  syncfusion_flutter_pdfviewer: ^26.2.11
 
 dev_dependencies:
   flutter_test:

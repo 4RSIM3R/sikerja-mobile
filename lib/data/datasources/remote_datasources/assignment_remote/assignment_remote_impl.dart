@@ -9,7 +9,8 @@ class AssignmentRemoteImpl extends BaseDioRemoteSource implements AssignmentRemo
   @override
   Future<PaginatedAssignment> get(int page) async {
     return networkRequest(
-      request: (dio) => dio.get(ApiPath.activity),
+      isAuth: true,
+      request: (dio) => dio.get(ApiPath.assignment),
       onResponse: (response) => PaginatedAssignment.fromJson(response),
     );
   }

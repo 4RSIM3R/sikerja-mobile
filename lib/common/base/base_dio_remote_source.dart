@@ -55,6 +55,7 @@ class BaseDioRemoteSource {
         throw const ApiException.serverException(message: 'UnExpected Error in status code!!!');
       }
     } on DioException catch (e) {
+      logger.e(e);
       var err = e.toApiException;
       throw err;
     } catch (e) {

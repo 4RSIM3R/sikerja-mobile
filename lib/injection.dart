@@ -8,16 +8,22 @@ import 'package:next_starter/data/datasources/remote_datasources/activity_remote
 import 'package:next_starter/data/datasources/remote_datasources/activity_remote/activity_remote_impl.dart';
 import 'package:next_starter/data/datasources/remote_datasources/announcement_remote/announcement_remote.dart';
 import 'package:next_starter/data/datasources/remote_datasources/announcement_remote/announcement_remote_impl.dart';
+import 'package:next_starter/data/datasources/remote_datasources/assignment_remote/assignment_remote.dart';
+import 'package:next_starter/data/datasources/remote_datasources/assignment_remote/assignment_remote_impl.dart';
 import 'package:next_starter/data/datasources/remote_datasources/attendance_remote/attendance_remote.dart';
 import 'package:next_starter/data/datasources/remote_datasources/attendance_remote/attendance_remote_impl.dart';
 import 'package:next_starter/data/datasources/remote_datasources/setting_remote/setting_remote.dart';
 import 'package:next_starter/data/datasources/remote_datasources/setting_remote/setting_remote_impl.dart';
 import 'package:next_starter/data/repositories/activity_repository.dart';
 import 'package:next_starter/data/repositories/announcement_repository.dart';
+import 'package:next_starter/data/repositories/assignment_repository.dart';
 import 'package:next_starter/data/repositories/attendance_repository.dart';
 import 'package:next_starter/data/repositories/setting_repository.dart';
 import 'package:next_starter/presentation/pages/activity/attendance/bloc/attendance_bloc.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
+import 'package:next_starter/presentation/pages/announcement/bloc/announcement_bloc.dart';
+import 'package:next_starter/presentation/pages/assignment/bloc/assignment_bloc.dart';
+import 'package:next_starter/presentation/pages/attendance/daily/bloc/daily_attendance_bloc.dart';
 
 import 'application/auth/auth_cubit.dart';
 import 'common/network/network_info.dart';
@@ -68,12 +74,20 @@ Future<void> initializeDependencies(GlobalKey<NavigatorState> navigatorKey) asyn
   // announcement
   locator.registerSingleton<AnnouncementRemote>(AnnouncementRemoteImpl(locator.get(), locator.get()));
   locator.registerSingleton(AnnouncementRepository(locator.get()));
+  locator.registerFactory(AnnouncementBloc.new);
+
+  // assignment
+  locator.registerSingleton<AssignmentRemote>(AssignmentRemoteImpl(locator.get(), locator.get()));
+  locator.registerSingleton(AssignmentRepository(locator.get()));
+  locator.registerFactory(AssignmentBloc.new);
 
   // setting
   locator.registerSingleton<SettingRemote>(SettingRemoteImpl(locator.get(), locator.get()));
   locator.registerSingleton(SettingRepository(locator.get()));
+  // locator.registerFactory(SettingBloc.new);
 
   // attendance
   locator.registerSingleton<AttendanceRemote>(AttendanceRemoteImpl(locator.get(), locator.get()));
   locator.registerSingleton(AttendanceRepository(locator.get()));
+  locator.registerFactory(DailyAttendanceBloc.new);
 }

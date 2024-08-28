@@ -7,7 +7,7 @@ void main() {
   Flavor.create(
     Environment.production,
     properties: {
-      Keys.apiUrl: 'https://api.dk-sumedang.com/',
+      Keys.apiUrl: 'https://api.dk-sumedang.com/api/',
       Configs.customKey: 'value',
     },
   );

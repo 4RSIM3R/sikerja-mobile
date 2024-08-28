@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,12 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   final bloc = locator<AuthCubit>();
 
   final form = fb.group({
-    'email': [
-      kDebugMode ? 'agus@nexteam.id' : '',
-      Validators.required,
-      Validators.email,
-    ],
-    'password': [kDebugMode ? '123a123a123' : '', Validators.required],
+    'email': ['', Validators.required, Validators.email],
+    'password': ['', Validators.required],
   });
 
   @override
@@ -88,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: BaseLogo(isSmall: true),
                 ),
                 Text(
-                  'SIKERJA DINKES Sumedang',
+                  'SIKERJA',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: CustomTextTheme.paragraph3.copyWith(

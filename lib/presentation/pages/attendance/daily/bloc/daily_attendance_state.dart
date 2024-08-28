@@ -6,8 +6,9 @@ class DailyAttendanceLoadingState extends DailyAttendanceState {}
 
 class DailyAttendanceLoadedState extends DailyAttendanceState {}
 
-class DailyAttendanceErrorState extends DailyAttendanceState {
+class DailyAttendanceFailureState extends DailyAttendanceState {
   final String message;
 
-  DailyAttendanceErrorState(this.message);
+  DailyAttendanceFailureState(this.message);
 }
+class DailyAttendanceSuccessState extends DailyAttendanceState {}

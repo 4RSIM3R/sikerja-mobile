@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:next_starter/application/auth/auth_cubit.dart';
 import 'package:next_starter/common/extensions/context_extension.dart';
 import 'package:next_starter/injection.dart';
-import 'package:next_starter/presentation/components/card/activity_card.dart';
+import 'package:next_starter/presentation/components/card/announcement_card.dart';
+import 'package:next_starter/presentation/components/card/assignment_card.dart';
 import 'package:next_starter/presentation/pages/about/about_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/activity_list_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
@@ -141,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(10),
                         image: const DecorationImage(
                           image: NetworkImage(
-                            'https://static.promediateknologi.id/crop/0x0:0x0/550x500/webp/photo/2023/01/09/2437041174.png',
+                            'https://static.promediateknologi.id/crop/0x0:0x0/500x500/webp/photo/2023/01/09/2437041174.png',
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -161,14 +162,14 @@ class _HomePageState extends State<HomePage> {
                             context.route.push(ActivityListPage.path);
                           },
                           child: Container(
-                            height: 55,
-                            width: 55,
+                            height: 50,
+                            width: 50,
                             decoration: BoxDecoration(
                               color: ColorTheme.primary.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Center(
-                              child: Icon(CupertinoIcons.list_bullet, color: ColorTheme.primary, size: 32),
+                              child: Icon(CupertinoIcons.list_bullet, color: ColorTheme.primary, size: 28),
                             ),
                           ),
                         ),
@@ -187,14 +188,14 @@ class _HomePageState extends State<HomePage> {
                             context.route.push(AssignmentPage.path);
                           },
                           child: Container(
-                            height: 55,
-                            width: 55,
+                            height: 50,
+                            width: 50,
                             decoration: BoxDecoration(
                               color: ColorTheme.primary.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Center(
-                              child: Icon(CupertinoIcons.doc, color: ColorTheme.primary, size: 32),
+                              child: Icon(CupertinoIcons.doc, color: ColorTheme.primary, size: 28),
                             ),
                           ),
                         ),
@@ -213,14 +214,14 @@ class _HomePageState extends State<HomePage> {
                             context.route.push(AboutPage.path);
                           },
                           child: Container(
-                            height: 55,
-                            width: 55,
+                            height: 50,
+                            width: 50,
                             decoration: BoxDecoration(
                               color: ColorTheme.primary.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Center(
-                              child: Icon(CupertinoIcons.pencil_circle, color: ColorTheme.primary, size: 32),
+                              child: Icon(CupertinoIcons.pencil_circle, color: ColorTheme.primary, size: 28),
                             ),
                           ),
                         ),
@@ -239,14 +240,14 @@ class _HomePageState extends State<HomePage> {
                             context.route.push(GalleryListPage.path);
                           },
                           child: Container(
-                            height: 55,
-                            width: 55,
+                            height: 50,
+                            width: 50,
                             decoration: BoxDecoration(
                               color: ColorTheme.primary.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Center(
-                              child: Icon(CupertinoIcons.photo, color: ColorTheme.primary, size: 32),
+                              child: Icon(CupertinoIcons.photo, color: ColorTheme.primary, size: 28),
                             ),
                           ),
                         ),
@@ -264,10 +265,10 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('Kegiatan', style: CustomTextTheme.paragraph2.copyWith(color: Colors.black)),
+                    Text('Surat Tugas', style: CustomTextTheme.paragraph2.copyWith(color: Colors.black)),
                     InkWell(
                       onTap: () {
-                        context.route.push(ActivityListPage.path);
+                        context.route.push(AssignmentPage.path);
                       },
                       child: Text(
                         'Lihat Semua',
@@ -276,12 +277,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                BlocBuilder<ActivityListBloc, ActivityListState>(
+                BlocBuilder<AssignmentBloc, AssignmentState>(
                   builder: (context, state) {
-                    if (state.status == ActivityListStatus.success) {
+                    if (state.status == AssignmentStatus.success) {
                       return Column(
                         children: [
-                          ...state.posts.take(3).map((e) => ActivityCard(model: e)),
+                          ...state.assignments.take(3).map((e) => AssignmentCard(model: e)),
                         ],
                       );
                     }
@@ -305,16 +306,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                BlocBuilder<ActivityListBloc, ActivityListState>(
+                BlocBuilder<AnnouncementBloc, AnnouncementState>(
                   builder: (context, state) {
-                    if (state.status == ActivityListStatus.success) {
+                    if (state.status == AnnouncementStatus.success) {
                       return Column(
                         children: [
-                          ...state.posts.take(3).map((e) => ActivityCard(model: e)),
+                          ...state.announcements.take(3).map((e) => AnnouncementCard(model: e)),
                         ],
                       );
+                    } else if (state.status == AnnouncementStatus.failure) {
+                      return Text(state.errorMessage);
                     }
-                    return const Center(child: CircularProgressIndicator.adaptive());
+                    return Text(state.status.toString());
                   },
                 ),
               ],

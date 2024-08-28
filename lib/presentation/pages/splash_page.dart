@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:next_starter/data/datasources/session/session_source.dart';
 import 'package:next_starter/injection.dart';
+import 'package:next_starter/presentation/pages/auth/login_page.dart';
 import 'package:next_starter/presentation/pages/home/home_page.dart';
 
 import '../../common/extensions/extensions.dart';
@@ -30,6 +31,8 @@ class _SplashPageState extends State<SplashPage> {
     if (user) {
       context.route.replace(HomePage.path);
       return;
+    } else {
+      context.route.replace(LoginPage.path);
     }
   }
 

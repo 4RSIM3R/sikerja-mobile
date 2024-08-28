@@ -12,7 +12,7 @@ void main() {
     color: Colors.green,
     name: 'PREVIEW',
     properties: {
-      Keys.apiUrl: 'https://api.dk-sumedang.com/',
+      Keys.apiUrl: 'https://api.dk-sumedang.com/api/',
       Configs.customKey: 'value',
     },
   );

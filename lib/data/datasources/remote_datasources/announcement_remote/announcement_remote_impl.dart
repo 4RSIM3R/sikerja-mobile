@@ -9,7 +9,8 @@ class AnnouncementRemoteImpl extends BaseDioRemoteSource implements Announcement
   @override
   Future<PaginatedAnnouncement> get(int page) {
     return networkRequest(
-      request: (dio) => dio.get(ApiPath.activity, queryParameters: {'page': page}),
+      isAuth: true,
+      request: (dio) => dio.get(ApiPath.announcement, queryParameters: {'page': page}),
       onResponse: (response) => PaginatedAnnouncement.fromJson(response),
     );
   }
