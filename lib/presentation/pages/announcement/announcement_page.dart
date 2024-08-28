@@ -74,6 +74,7 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
                 }
                 return ListView.builder(
                   physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(16),
                   itemBuilder: (BuildContext context, int i) {
                     return i >= state.announcements.length
                         ? const RowLoadingWidget()

@@ -6,12 +6,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:next_starter/application/auth/auth_cubit.dart';
 import 'package:next_starter/common/constant/ui_constant.dart';
 import 'package:next_starter/common/extensions/context_extension.dart';
+import 'package:next_starter/common/widgets/app_error_widget.dart';
 import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/card/announcement_card.dart';
 import 'package:next_starter/presentation/components/card/assignment_card.dart';
 import 'package:next_starter/presentation/pages/about/about_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/activity_list_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
+import 'package:next_starter/presentation/pages/announcement/announcement_page.dart';
 import 'package:next_starter/presentation/pages/announcement/bloc/announcement_bloc.dart';
 import 'package:next_starter/presentation/pages/assignment/assignment_page.dart';
 import 'package:next_starter/presentation/pages/assignment/bloc/assignment_bloc.dart';
@@ -283,8 +285,15 @@ class _HomePageState extends State<HomePage> {
                           ...state.assignments.take(3).map((e) => AssignmentCard(model: e)),
                         ],
                       );
+                    } else if (state.status == AssignmentStatus.failure) {
+                      return AppErrorWidget(message: state.errorMessage);
+                    } else {
+                      return const Column(
+                        children: [
+                          Text('shimmer...'),
+                        ],
+                      );
                     }
-                    return const Center(child: CircularProgressIndicator.adaptive());
                   },
                 ),
                 24.verticalSpace,
@@ -295,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                     Text('Berita', style: CustomTextTheme.paragraph2.copyWith(color: Colors.black)),
                     InkWell(
                       onTap: () {
-                        context.route.push(ActivityListPage.path);
+                        context.route.push(AnnouncementPage.path);
                       },
                       child: Text(
                         'Lihat Semua',
@@ -313,9 +322,14 @@ class _HomePageState extends State<HomePage> {
                         ],
                       );
                     } else if (state.status == AnnouncementStatus.failure) {
-                      return Text(state.errorMessage);
+                      return AppErrorWidget(message: state.errorMessage);
+                    } else {
+                      return const Column(
+                        children: [
+                          Text('shimmer...'),
+                        ],
+                      );
                     }
-                    return Text(state.status.toString());
                   },
                 ),
               ],
