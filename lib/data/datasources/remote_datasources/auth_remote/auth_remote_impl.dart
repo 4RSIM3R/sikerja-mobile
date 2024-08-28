@@ -14,10 +14,10 @@ class AuthRemoteImpl extends BaseDioRemoteSource implements AuthRemote {
         data: {
           "email": email,
           "password": password,
+          'fcm_id': 'fcm-id',
         },
       ),
       onResponse: (response) {
-        print(response);
         return SessionModel.fromMap(response['data']);
       },
       isAuth: false,

@@ -14,9 +14,11 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepository repo = locator<AuthRepository>();
 
   Future<void> login(Map<String, dynamic> json) async {
-    // final NotificationInterface notification = locator<NotificationInterface>();
+    // json['fcm_id'] = 'fcm-id';
+    Map<String, dynamic> payload = Map.from(json);
+    payload['fcm_id'] = 'fcm-id';
     emit(AuthLoading());
-    final result = await repo.login(json);
+    final result = await repo.login(payload);
     await result.fold<FutureOr<void>>(
       (l) => emit(AuthError(l.message)),
       (r) async {
