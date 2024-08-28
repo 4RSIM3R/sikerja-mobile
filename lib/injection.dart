@@ -20,6 +20,7 @@ import 'package:next_starter/data/repositories/assignment_repository.dart';
 import 'package:next_starter/data/repositories/attendance_repository.dart';
 import 'package:next_starter/data/repositories/setting_repository.dart';
 import 'package:next_starter/presentation/pages/activity/attendance/bloc/attendance_bloc.dart';
+import 'package:next_starter/presentation/pages/activity/form/bloc/activity_form_bloc.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
 import 'package:next_starter/presentation/pages/announcement/bloc/announcement_bloc.dart';
 import 'package:next_starter/presentation/pages/assignment/bloc/assignment_bloc.dart';
@@ -70,6 +71,7 @@ Future<void> initializeDependencies(GlobalKey<NavigatorState> navigatorKey) asyn
   locator.registerSingleton(ActivityRepository(locator.get()));
   locator.registerFactory(ActivityListBloc.new);
   locator.registerFactory(AttendanceBloc.new);
+  locator.registerFactory(ActivityFormBloc.new);
 
   // announcement
   locator.registerSingleton<AnnouncementRemote>(AnnouncementRemoteImpl(locator.get(), locator.get()));

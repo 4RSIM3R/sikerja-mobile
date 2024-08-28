@@ -4,6 +4,7 @@ import 'package:next_starter/data/models/announcement/announcement_model.dart';
 import 'package:next_starter/presentation/pages/about/about_page.dart';
 import 'package:next_starter/presentation/pages/activity/attendance/attendance_page.dart';
 import 'package:next_starter/presentation/pages/activity/detail/activity_detail_page.dart';
+import 'package:next_starter/presentation/pages/activity/form/activity_form_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/activity_list_page.dart';
 import 'package:next_starter/presentation/pages/announcement/announcement_detail_page.dart';
 import 'package:next_starter/presentation/pages/announcement/announcement_page.dart';
@@ -88,6 +89,11 @@ class GeneralRoute {
       path: PdfViewerPage.path,
       name: PdfViewerPage.path,
       builder: (context, state) => const PdfViewerPage(),
+    ),
+    GoRoute(
+      path: ActivityFormPage.path,
+      name: ActivityFormPage.path,
+      builder: (context, state) => const ActivityFormPage(),
     )
   ];
 }

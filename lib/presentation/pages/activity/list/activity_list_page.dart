@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:next_starter/common/extensions/context_extension.dart';
 import 'package:next_starter/common/widgets/app_error_widget.dart';
 import 'package:next_starter/common/widgets/loading_indicator_widget.dart';
 import 'package:next_starter/common/widgets/row_loading_widget.dart';
 import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/card/activity_card.dart';
+import 'package:next_starter/presentation/pages/activity/form/activity_form_page.dart';
 import 'package:next_starter/presentation/pages/activity/list/bloc/activity_list_bloc.dart';
 
 class ActivityListPage extends StatefulWidget {
@@ -79,7 +81,9 @@ class _ActivityListPageState extends State<ActivityListPage> {
                 return ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int i) {
-                    return i >= state.activities.length ? const RowLoadingWidget() : ActivityCard(model: state.activities[i]);
+                    return i >= state.activities.length
+                        ? const RowLoadingWidget()
+                        : ActivityCard(model: state.activities[i]);
                   },
                   itemCount: state.hasReachedMax ? state.activities.length : state.activities.length + 1,
                   controller: _scrollController,
@@ -88,6 +92,12 @@ class _ActivityListPageState extends State<ActivityListPage> {
                 return const LoadingIndicatorWidget();
             }
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.route.pushNamed(ActivityFormPage.path);
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );
